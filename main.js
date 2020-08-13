@@ -15,7 +15,7 @@ function score() {
     if(b.x < b.radius) {
         team_b.points++;
     }
-    if(b.x + b.radius >= width) {
+    if(b.x + b.radius > width) {
         team_a.points++;
     }
 }
