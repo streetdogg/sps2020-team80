@@ -1,28 +1,30 @@
-var player1;
-var player2;
+var team_a;
+var team_b;
 var b;
 
 function setup() {
+    createCanvas(windowWidth,windowHeight);
     b = new ball();
-    createCanvas(windowWidth, windowHeight);
-    player1 = new player(10, height / 2);
-    player2 = new player(width - 30, height / 2);
+    team_a = new team(1);
+    team_b = new team(2);
+    team_a.setup();
+    team_b.setup();
 }
 
 function draw() {
     background(0);
-    rect(width / 2, 0, 5, windowHeight);
+    rect(width/2, 0, 5, windowHeight)
     textSize(30);
     fill(160, 78, 180);
-    
-    text("Player 1 : " + player1.points, 50, 40);
-    text("Player 2 : " + player2.points, width - 300, 40);
 
-    player1.move(mouseY);
-    player2.move(mouseY);
-    player1.show();
-    player2.show();
+    text("Team A : " + team_a.points, 50, 40);
+    text("Team B : " + team_b.points, width - 300, 40);
 
-    b.show();
+    team_a.move(mouseY);
+    team_b.move(mouseY);
+    team_a.show();
+    team_b.show();
+
     b.move();
+    b.show();
 }
