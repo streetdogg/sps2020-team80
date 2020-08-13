@@ -36,6 +36,7 @@ function draw() {
 
     if(b.collide(team_a.player1) || b.collide(team_b.player1) || b.collide(team_a.player2) || b.collide(team_b.player2) || b.collide(team_a.player3) || b.collide(team_b.player3)){
         b.vx *= -1;
+        b.colorChange();
     }
 
     b.move();
