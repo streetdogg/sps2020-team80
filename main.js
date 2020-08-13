@@ -11,6 +11,15 @@ function setup() {
     team_b.setup();
 }
 
+function score() {
+    if(b.x < b.radius) {
+        team_b.points++;
+    }
+    if(b.x + b.radius >= width) {
+        team_a.points++;
+    }
+}
+
 function draw() {
     background(0);
     rect(width/2, 0, 5, windowHeight)
@@ -31,4 +40,6 @@ function draw() {
 
     b.move();
     b.show();
+
+    score();
 }
