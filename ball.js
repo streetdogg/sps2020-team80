@@ -13,5 +13,12 @@ function ball() {
     this.move = function() {
         this.y += this.vy;
         this.x += this.vx;
+
+        if (this.x < this.radius|| this.x > width - this.radius) {
+            this.vx *= -1;
+        }
+        if (this.y < this.radius || this.y > height - this.radius*2) {
+            this.vy *= -1;
+        }
     }
 }
