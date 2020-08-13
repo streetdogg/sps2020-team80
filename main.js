@@ -20,6 +20,10 @@ function score() {
     }
 }
 
+function preload() {
+    collision_sound = loadSound("pingpong.mp3");
+}
+
 function draw() {
     background(0);
     rect(width/2, 0, 5, windowHeight)
@@ -37,6 +41,7 @@ function draw() {
     if(b.collide(team_a.player1) || b.collide(team_b.player1) || b.collide(team_a.player2) || b.collide(team_b.player2) || b.collide(team_a.player3) || b.collide(team_b.player3)){
         b.vx *= -1;
         b.colorChange();
+        collision_sound.play();
     }
 
     b.move();
