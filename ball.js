@@ -5,6 +5,7 @@ function ball() {
     var r = floor(random(2));
     this.vx = (r===0) ? -5:5;
     this.vy = 5;
+    this.hit = false;
 
     this.show = function() {
         ellipse(this.x,this.y,this.radius,this.radius);
@@ -20,5 +21,10 @@ function ball() {
         if (this.y < this.radius || this.y > height - this.radius*2) {
             this.vy *= -1;
         }
+    }
+
+    this.collide = function(p) {
+        this.hit = collideRectCircle(p.x, p.y, p.w, p.h, this.x, this.y, this.radius * 2);
+        return this.hit;
     }
 }
