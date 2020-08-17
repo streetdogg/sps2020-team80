@@ -37,6 +37,13 @@ def initPlayer(playerName):
     
     totalPlayer+=1
 
+@socketio.on( 'move' )
+def moveThePlayer(moveJson):
+    playerName = moveJson['name']
+    position = moveJson['position']
+    clientTeam = moveJson['team']
+    playersPosition[str(clientTeam)][playerName] = position
+
 @socketio.on('addPlayer')
 def addPlayer(playerJson):
     player = playerJson['name']

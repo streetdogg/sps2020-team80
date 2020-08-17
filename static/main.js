@@ -63,8 +63,13 @@ function draw() {
     text("Team A : " + team_a.points, 50, 40);
     text("Team B : " + team_b.points, width - 300, 40);
 
-    team_a.move(mouseY);
-    team_b.move(mouseY);
+    if (start) {
+        socket.emit('move', {
+            name: playerName,
+            team: clientTeam,
+            position: mouseY
+        })
+   }
     team_a.show();
     team_b.show();
 
