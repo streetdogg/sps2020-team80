@@ -9,6 +9,18 @@ function setup() {
     team_b = new team(2);
     team_a.setup();
     team_b.setup();
+    collideDebug(true);
+
+    socket.on('addToTeam', function something(teamName, player){
+        
+        console.log('addToTeam: '+teamName+" "+playerName);
+        if(teamName=="A") {
+            team_a.addPlayer(teamName, playerName);
+        } else {
+            team_b.addPlayer(teamName, playerName);
+        }
+        start=true;
+    })
 }
 
 function score() {
