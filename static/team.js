@@ -20,4 +20,18 @@ function team(a) {
             p.move(y);
         }
     }
+
+    this.addPlayer = function(teamName, playerName) {
+        var newPlayer;
+        console.log('adding new player ' + playerName+' to the team '+teamName);
+        if(teamName == "A") {
+            newPlayer = new player(10,height/2, playerName);
+        } else {
+            newPlayer = new player(width-10, height/2, playerName);
+        }
+        this.players.push(newPlayer);
+        console.log('Team '+teamName+'has these following players: ');
+        console.log(this.players);
+
+    }
 } 
