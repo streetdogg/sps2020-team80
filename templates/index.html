@@ -24,6 +24,8 @@
       <input type="text" id="playerName" value="Nitish"></input>
       <button onclick='startGame()'> Play </button>
     </div>
+    <h1 id="player">anonymous</h1>
+    <br><br><br><br>
 
     <script>
       var start = false;
@@ -40,6 +42,9 @@
         console.log('New Player is '+playerName);
         playerName = document.getElementById('playerName').value;
         this.playerName = playerName;
+
+        var element = document.getElementById("player");
+        element.innerHTML = playerName;
       }
     </script>
   </body>
