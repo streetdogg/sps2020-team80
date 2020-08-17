@@ -18,8 +18,10 @@ def initPlayer(playerName):
 
     if totalPlayer%2 == 0:
         playersPosition[team_a][playerName] =0
+        socketio.emit('addToTeam',("A", playerName))
     else:
         playersPosition[team_b][playerName] =0
+        socketio.emit('addToTeam', ("B",playerName))
     
     totalPlayer+=1
 
