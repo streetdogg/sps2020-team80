@@ -43,6 +43,10 @@
         playerName = document.getElementById('playerName').value;
         this.playerName = playerName;
 
+        socket.emit('addPlayer', {
+          name: playerName
+        })
+
         var element = document.getElementById("player");
         element.innerHTML = playerName;
       }

@@ -7,6 +7,28 @@ Payload.max_decode_packets = 500
 app = Flask(__name__)
 socketio = SocketIO(app, async_mode='eventlet')
 
+def initPlayer(playerName):
+    print('new player '+ playerName+' initiating...')
+    global totalPlayer
+    currentTeam = team_a
+    if(totalPlayer%2):
+        currentTeam = team_b
+    
+    playerIndex[playerName]=totalPlayer//2
+
+    if totalPlayer%2 == 0:
+        playersPosition[team_a][playerName] =0
+    else:
+        playersPosition[team_b][playerName] =0
+    
+    totalPlayer+=1
+
+@socketio.on('addPlayer')
+def addPlayer(playerJson):
+    player = playerJson['name']
+    print('new player joined with name: ' + player)
+    initPlayer(player)
+
 @socketio.on( 'game start' )
 def newLogging(data):
   print( data['msg'] )
