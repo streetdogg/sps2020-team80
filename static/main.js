@@ -39,6 +39,14 @@ function setup() {
             }
         }
     })
+
+    socket.on('movePlayer', function(teamName, playerIndex, position) {
+        if(teamName=="A") {
+            team_a.players[playerIndex].move(position);
+        } else {
+            team_b.players[playerIndex].move(position);
+        }
+    })
 }
 
 function score() {
