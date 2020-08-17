@@ -23,6 +23,9 @@ def initPlayer(playerName):
     if(totalPlayer%2):
         currentTeam = team_b
     
+    emit('connectedPlayers', ("A",json.dumps(playersPosition[team_a]), playerName, currentTeam), room=request.sid )
+    emit('connectedPlayers', ("B", json.dumps(playersPosition[team_b]), playerName, currentTeam), room=request.sid)
+
     playerIndex[playerName]=totalPlayer//2
 
     if totalPlayer%2 == 0:
