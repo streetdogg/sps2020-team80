@@ -24,9 +24,18 @@
       <input type="text" id="playerName" value="Nitish"></input>
       <button onclick='startGame()'> Play </button>
     </div>
-    <script>
-      function startGame() {
 
+    <script>
+      var start = false;
+      var protocol = window.location.protocol;
+      var socket = io.connect(protocol+'//' + document.domain + ':' + location.port);
+      socket.on('connect', function() {
+            socket.emit('game start', {
+                msg: 'new player joined...'
+            })
+        })
+
+      function startGame() {
         playerName = document.getElementById('playerName').value;
         console.log('New Player is '+playerName);
         playerName = document.getElementById('playerName').value;

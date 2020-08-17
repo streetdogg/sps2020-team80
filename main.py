@@ -7,6 +7,10 @@ Payload.max_decode_packets = 500
 app = Flask(__name__)
 socketio = SocketIO(app, async_mode='eventlet')
 
+@socketio.on( 'game start' )
+def newLogging(data):
+  print( data['msg'] )
+
 @app.route('/')
 def home():
     return render_template('index.html')
