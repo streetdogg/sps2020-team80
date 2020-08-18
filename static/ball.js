@@ -25,9 +25,14 @@ function ball() {
         }
     }
 
-    this.collide = function(p) {
-        this.hit = collideRectCircle(p.x, p.y, p.w, p.h, this.x, this.y, this.radius * 2);
-        return this.hit;
+    this.team_collide = function(players) {
+        for(p of players) {
+            this.hit = collideRectCircle(p.x, p.y, p.w, p.h, this.x, this.y, this.radius * 2);
+            if(this.hit) {
+                return true;
+            }
+        }
+        return false;
     }
 
     this.colorChange = function() {
