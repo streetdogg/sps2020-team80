@@ -48,4 +48,38 @@ function draw() {
     b.show();
 
     score();
+    showWinner();
 }
+
+function showWinner(){
+   
+    if(team_a.points==3 && team_b.points<3){
+        background(0);
+        textSize(50);
+        fill(160,78,180);
+        text("TEAM A WINS!!", width/2-100,height/2);
+        alert("Do you want to play again?");
+        window.location.reload();
+    }
+
+    else if(team_b.points==3 && team_a.points<3){
+        background(0);
+        textSize(50);
+        fill(160,78,180);
+        text("TEAM B WINS!!", width/2-100,height/2);
+        alert("Do you want to play again?");
+        window.location.reload();
+    }
+
+    else if (team_a.points==3 && team_b.points==3){
+        background(0);
+        textSize(100);
+        fill(160,78,180);
+    
+        text("ITS A TIE!!", width/2-100,height/2);
+        alert("Do you want to play again?");
+        window.location.reload();
+    }
+
+}
+
