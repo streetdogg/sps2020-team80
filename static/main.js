@@ -6,10 +6,7 @@ var playerName;
 var clientTeam;
 var isLeader = false;
 var winningScore = 10;
-<<<<<<< HEAD
 
-=======
->>>>>>> 9378e7de1a5f4bec12a51c8271ea546f8e16d85e
 function setup() {
     createCanvas(windowWidth,windowHeight);
     b = new ball();
