@@ -5,7 +5,7 @@ var start = false;
 var playerName;
 var clientTeam;
 var isLeader = false;
-
+var winningScore = 10;
 function setup() {
     createCanvas(windowWidth,windowHeight);
     b = new ball();
@@ -78,7 +78,7 @@ function score() {
 }
 
 function preload() {
-    collision_sound = loadSound("pingpong.mp3");
+    // collision_sound = loadSound("pingpong.mp3");
 }
 
 function draw() {
@@ -103,7 +103,7 @@ function draw() {
     if(b.team_collide(team_a.players) || b.team_collide(team_b.players)){
         b.vx *= -1;
         b.colorChange();
-        collision_sound.play();
+        // collision_sound.play();
     }
 
     b.move();
@@ -112,4 +112,43 @@ function draw() {
     if(isLeader) {
         score();
     }
+    showWinner();
 }
+
+function showWinner(){
+   
+    if(team_a.points==winningScore && team_b.points<winningScore){
+        background(0);
+        textSize(50);
+        fill(160,78,180);
+        text("TEAM A WINS!!", width/2-100,height/2);
+        team_a.points = 0;
+        team_b.points = 0;
+        alert("Do you want to play again?");
+        window.location.reload();
+    }
+
+    else if(team_b.points==winningScore && team_a.points<winningScore){
+        background(0);
+        textSize(50);
+        fill(160,78,180);
+        team_a.points = 0;
+        team_b.points = 0;
+        text("TEAM B WINS!!", width/2-100,height/2);
+        alert("Do you want to play again?");
+        window.location.reload();
+    }
+
+    else if (team_a.points==winningScore && team_b.points==winningScore){
+        background(0);
+        textSize(100);
+        fill(160,78,180);
+        team_a.points = 0;
+        team_b.points = 0;
+        text("ITS A TIE!!", width/2-100,height/2);
+        alert("Do you want to play again?");
+        window.location.reload();
+    }
+
+}
+
