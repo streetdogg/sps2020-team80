@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+	<script type="text/javascript">
+		var team = '{{data.team}}';
+		console.log(team);
+		var player_name = '{{data.player}}';
+		console.log(player_name);
+		var room = '{{data.room}}';
+		var teamA = '{{data.teamA}}';
+		var teamB = '{{data.teamB}}';
+		console.log(room);
+	</script>
+</head>
+<body>
+	<h1 id = "game_room"> <script type="text/javascript">document.write("Game Room: "+room);</script> </h1>
+	<h2 id = "player_added"> <script type="text/javascript">document.write("player_added: "+player_name);</script>  </h2>
+	<h3 id = "team"><script type="text/javascript">document.write("in team: "+teamA);</script> </h3>
+	<div>
+		<div id= "teamA" style="float:left">
+			<h1>Team A</h1>
+		</div>
+		<div style="float:left">
+			<iframe src="index.html" style="margin:20px"></iframe>
+		</div>
+		<div id= "teamB" style="float:left">
+			<h1>Team B</h1>
+		</div>
+	</div>
+
+	<script type="text/javascript">
+		for (var i = Things.length - 1; i >= 0; i--) {
+			Things[i]
+		}
+	</script>
+
+</body>
+</html>
