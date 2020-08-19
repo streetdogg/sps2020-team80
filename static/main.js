@@ -6,7 +6,10 @@ var playerName;
 var clientTeam;
 var isLeader = false;
 var winningScore = 10;
+<<<<<<< HEAD
 
+=======
+>>>>>>> 9378e7de1a5f4bec12a51c8271ea546f8e16d85e
 function setup() {
     createCanvas(windowWidth,windowHeight);
     b = new ball();
@@ -79,7 +82,7 @@ function score() {
 }
 
 function preload() {
-    collision_sound = loadSound("pingpong.mp3");
+    // collision_sound = loadSound("pingpong.mp3");
 }
 
 function draw() {
@@ -104,7 +107,7 @@ function draw() {
     if(b.team_collide(team_a.players) || b.team_collide(team_b.players)){
         b.vx *= -1;
         b.colorChange();
-        collision_sound.play();
+        // collision_sound.play();
     }
 
     b.move();
