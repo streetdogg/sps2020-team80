@@ -16,6 +16,10 @@ playerIndex = dict()
 playersPosition[team_a] ={}
 playersPosition[team_b] = {}
 
+score = dict()
+score[team_a] = 0
+score[team_b] = 0
+
 def initPlayer(playerName):
     print('new player '+ playerName+' initiating...')
     global totalPlayer
@@ -35,7 +39,14 @@ def initPlayer(playerName):
         playersPosition[team_b][playerName] =0
         socketio.emit('addToTeam', ("B",playerName))
     
+    emit('updateScore', (score[team_a], score[team_b]), room=request.sid)
     totalPlayer+=1
+
+@socketio.on('scoreChange')
+def scoreChanged(scoreJson):
+    score[team_a] = scoreJson[team_a]
+    score[team_b] = scoreJson[team_b]
+    socketio.emit('updateScore', (score[team_a], score[team_b]))
 
 @socketio.on( 'move' )
 def moveThePlayer(moveJson):

@@ -4,6 +4,7 @@ var b;
 var start = false;
 var playerName;
 var clientTeam;
+var isLeader = false;
 
 function setup() {
     createCanvas(windowWidth,windowHeight);
@@ -13,6 +14,7 @@ function setup() {
     team_a.setup();
     team_b.setup();
     collideDebug(true);
+    isLeader = false;
 
     socket.on('addToTeam', function something(teamName, player){
         
@@ -29,6 +31,9 @@ function setup() {
         playerName = currentPlayer;
         clientTeam = currentTeam;
         var json = JSON.parse(players);
+        if(jQuery.isEmptyObject(json) && teamName=="A") {
+            isLeader = true;
+        }
         if(teamName=="A") {
             for(var key in json) {
                 team_a.addPlayer(teamName, key);
@@ -47,14 +52,28 @@ function setup() {
             team_b.players[playerIndex].move(position);
         }
     })
+
+    socket.on('updateScore', function(teamAScore,  teamBScore) {
+        team_a.points = teamAScore;
+        team_b.points = teamBScore;
+    })
 }
 
 function score() {
+    var isChanged = false;
     if(b.x < b.radius) {
         team_b.points++;
+        isChanged = true;
     }
     if(b.x + b.radius > width) {
         team_a.points++;
+        isChanged = true;
+    }
+    if(isChanged) {
+        socket.emit('scoreChange', {
+            A: team_a.points,
+            B: team_b.points
+        })
     }
 }
 
@@ -90,5 +109,7 @@ function draw() {
     b.move();
     b.show();
 
-    score();
+    if(isLeader) {
+        score();
+    }
 }
