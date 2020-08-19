@@ -4,6 +4,8 @@ var b;
 var start = false;
 var playerName;
 var clientTeam;
+var isLeader = false;
+var winningScore = 10;
 
 function setup() {
     createCanvas(windowWidth,windowHeight);
@@ -13,6 +15,7 @@ function setup() {
     team_a.setup();
     team_b.setup();
     collideDebug(true);
+    isLeader = false;
 
     socket.on('addToTeam', function something(teamName, player){
         
@@ -29,6 +32,9 @@ function setup() {
         playerName = currentPlayer;
         clientTeam = currentTeam;
         var json = JSON.parse(players);
+        if(jQuery.isEmptyObject(json) && teamName=="A") {
+            isLeader = true;
+        }
         if(teamName=="A") {
             for(var key in json) {
                 team_a.addPlayer(teamName, key);
@@ -47,14 +53,28 @@ function setup() {
             team_b.players[playerIndex].move(position);
         }
     })
+
+    socket.on('updateScore', function(teamAScore,  teamBScore) {
+        team_a.points = teamAScore;
+        team_b.points = teamBScore;
+    })
 }
 
 function score() {
+    var isChanged = false;
     if(b.x < b.radius) {
         team_b.points++;
+        isChanged = true;
     }
     if(b.x + b.radius > width) {
         team_a.points++;
+        isChanged = true;
+    }
+    if(isChanged) {
+        socket.emit('scoreChange', {
+            A: team_a.points,
+            B: team_b.points
+        })
     }
 }
 
@@ -90,5 +110,46 @@ function draw() {
     b.move();
     b.show();
 
-    score();
+    if(isLeader) {
+        score();
+    }
+    showWinner();
 }
+
+function showWinner(){
+   
+    if(team_a.points==winningScore && team_b.points<winningScore){
+        background(0);
+        textSize(50);
+        fill(160,78,180);
+        team_a.points = 0;
+        team_b.points = 0;
+        text("TEAM A WINS!!", width/2-100,height/2);
+        alert("Do you want to play again?");
+        window.location.reload();
+    }
+
+    else if(team_b.points==winningScore && team_a.points<winningScore){
+        background(0);
+        textSize(50);
+        fill(160,78,180);
+        team_a.points = 0;
+        team_b.points = 0;
+        text("TEAM B WINS!!", width/2-100,height/2);
+        alert("Do you want to play again?");
+        window.location.reload();
+    }
+
+    else if (team_a.points==winningScore && team_b.points==winningScore){
+        background(0);
+        textSize(100);
+        fill(160,78,180);
+        team_a.points = 0;
+        team_b.points = 0;
+        text("ITS A TIE!!", width/2-100,height/2);
+        alert("Do you want to play again?");
+        window.location.reload();
+    }
+
+}
+
