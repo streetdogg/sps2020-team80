@@ -16,6 +16,7 @@ function setup() {
     team_b.setup();
     collideDebug(true);
     isLeader = false;
+    winningScore = 20;
 
     socket.on('addToTeam', function something(teamName, player){
         
@@ -34,6 +35,7 @@ function setup() {
         var json = JSON.parse(players);
         if(jQuery.isEmptyObject(json) && teamName=="A") {
             isLeader = true;
+            window.setInterval(updateBallPosition, 2000);
         }
         if(teamName=="A") {
             for(var key in json) {
@@ -57,6 +59,13 @@ function setup() {
     socket.on('updateScore', function(teamAScore,  teamBScore) {
         team_a.points = teamAScore;
         team_b.points = teamBScore;
+    })
+
+    socket.on('syncBall', function(x, y, vx, vy) {
+        b.x = x;
+        b.y = y;
+        b.vx = vx;
+        b.vy = vy;
     })
 }
 
@@ -153,3 +162,12 @@ function showWinner(){
 
 }
 
+function updateBallPosition() {
+    console.log('Updating ball position...');
+    socket.emit('updateBall', {
+        x: b.x,
+        y: b.y,
+        vx: b.vx,
+        vy: b.vy
+    });
+}
