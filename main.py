@@ -11,6 +11,11 @@ team_a = "A"
 team_b = "B"
 totalPlayer = 0
 
+#for the game landing page
+teamA=[]
+teamB=[]
+player_no = 0
+
 playersPosition = dict()
 playerIndex = dict()
 score = dict()
@@ -76,11 +81,38 @@ def addPlayer(playerJson):
 
 @socketio.on( 'game start' )
 def newLogging(data):
-  print( data['msg'] )
+	print( data['msg'] )
 
-@app.route('/')
+
+#for the game landing page
+@app.route("/newplayer/index.html")
+def index():
+	return render_template("index.html")
+
+@app.route("/newplayer/")
 def home():
-    return render_template('index.html')
+	global player_no 
+	global teamA
+	global teamB
+	player_no +=1
+	player = request.args.get('player')
+	room = request.args.get('room')
+	if player_no%2 == 1:
+		team = "teamA"
+		teamA.append(player)
+	else:
+		team = "teamB"
+		teamB.append(player)
+
+	data = {
+		'player':player,
+		'team':team,
+		'player_no':player_no,
+		'room': room,
+		'teamA': teamA,
+		'teamB':teamB
+	}
+	return render_template("indexholder.html",data=data)
 
 if __name__ == '__main__':
     initialize()
