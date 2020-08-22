@@ -29,7 +29,7 @@ function gotMessage(message, sender, sendResponse) {
 function gameArea(){	
 	player_no ++;
 	
-	let url = 'http://127.0.0.1:5000/addplayer/?player=';
+	let url = 'http://127.0.0.1:5000/newplayer/?player=';
 
 	//get the player name and add to the url
 	var self = document.getElementById("_ij").text;
