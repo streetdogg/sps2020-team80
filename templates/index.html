@@ -3,6 +3,13 @@
   <head>
     <meta charset="UTF-8">
     <title>PONG</title>
+    <style type="text/css">
+      body {
+        height:90%;
+        width: auto;
+        margin: 20px;
+      }
+    </style>
 
     <script src="/static/libraries/p5.js" type="text/javascript"></script>
     <script src="/static/libraries/p5.dom.js" type="text/javascript"></script>
@@ -24,9 +31,8 @@
       <input type="text" id="playerName" value="Nitish"></input>
       <button onclick='startGame()'> Play </button>
     </div>
-    <h1 id="player">anonymous</h1>
-    <br><br><br><br>
-
+    <!-- <h1 id="player">anonymous</h1> -->
+    <br>
     <script>
       var start = false;
       var protocol = window.location.protocol;
