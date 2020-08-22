@@ -13,12 +13,18 @@ totalPlayer = 0
 
 playersPosition = dict()
 playerIndex = dict()
-playersPosition[team_a] ={}
-playersPosition[team_b] = {}
-
 score = dict()
-score[team_a] = 0
-score[team_b] = 0
+ball = dict()
+
+def initialize():
+    playersPosition[team_a] ={}
+    playersPosition[team_b] = {}
+    score[team_a] = 0
+    score[team_b] = 0
+    ball["x"] = 0
+    ball["y"] = 0
+    ball["vx"] = 0
+    ball["vy"] = 0
 
 def initPlayer(playerName):
     print('new player '+ playerName+' initiating...')
@@ -41,6 +47,12 @@ def initPlayer(playerName):
     
     emit('updateScore', (score[team_a], score[team_b]), room=request.sid)
     totalPlayer+=1
+
+@socketio.on('updateBall')
+def updateBall(ballJson):
+    for key, val in ballJson.items():
+        ball[key] = val
+    socketio.emit('syncBall', (ball['x'], ball['y'], ball['vx'], ball['vy']))
 
 @socketio.on('scoreChange')
 def scoreChanged(scoreJson):
@@ -71,4 +83,5 @@ def home():
     return render_template('index.html')
 
 if __name__ == '__main__':
+    initialize()
     socketio.run(app)
