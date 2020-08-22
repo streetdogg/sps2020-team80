@@ -21,7 +21,7 @@ fasteners==0.14.1
 Flask==1.1.1
 future==0.18.2
 Guake==3.6.3
-httplib2==0.14.0
+httplib2==0.18.0
 idna==2.8
 itsdangerous==1.1.0
 Jinja2==2.10.1
