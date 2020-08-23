@@ -16,5 +16,10 @@
 	"browser_action": {
 		"default_icon": "blue.png"
 	},
-	"permissions": ["http://localhost/*","http://127.0.0.1:5000/*"]
+	"permissions": ["http://localhost/*","http://127.0.0.1:5000/*"],
+	"icons" : {
+		"16":"blue.png",
+		"48":"blue.png",
+		"128":"blue.png"
+	}
 }
