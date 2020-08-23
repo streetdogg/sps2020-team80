@@ -3,6 +3,11 @@
   <head>
     <meta charset="UTF-8">
     <title>PONG</title>
+    <style type="text/css">
+      body {
+        margin: 5px;
+      }
+    </style>
 
     <script src="/static/libraries/p5.js" type="text/javascript"></script>
     <script src="/static/libraries/p5.dom.js" type="text/javascript"></script>
@@ -19,14 +24,12 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/1.7.3/socket.io.min.js"></script>
   </head>
-  <body>
-    <div>
+  <body id="body">
+    <div id="start-game">
       <input type="text" id="playerName" value="Nitish"></input>
       <button onclick='startGame()'> Play </button>
     </div>
-    <h1 id="player">anonymous</h1>
-    <br><br><br><br>
-
+    <!-- <h1 id="player">anonymous</h1> -->
     <script>
       var start = false;
       var protocol = window.location.protocol;
@@ -48,7 +51,9 @@
         })
 
         var element = document.getElementById("player");
+        document.getElementById("body").removeChild(document.getElementById("start-game"));
         element.innerHTML = playerName;
+
       }
     </script>
   </body>

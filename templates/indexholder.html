@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+	<script type="text/javascript">
+		var team = '{{data.team}}';
+		console.log(team);
+		var player_name = '{{data.player}}';
+		console.log(player_name);
+		var room = '{{data.room}}';
+		var teamA = '{{data.teamA}}';
+		var teamB = '{{data.teamB}}';
+	</script>
+</head>
+<body>
+	<h3 id = "game_room" style="margin-left: 20px;"> <script type="text/javascript">
+		document.write("Game Room: "+room+"<br>"); 
+		document.write("Your Team: "+team+"<br>");
+		document.write("Player: "+player_name);
+	</script> </h3>
+	<div style="margin:auto">
+		<center>
+			<iframe src="index.html" style="margin:10px;height:650px;width:1200px; border:0px; display:block;"></iframe>
+		</center>
+		
+	</div>
+</body>
+</html>

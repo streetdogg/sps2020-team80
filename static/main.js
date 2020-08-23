@@ -8,7 +8,8 @@ var isLeader = false;
 var winningScore = 10;
 
 function setup() {
-    createCanvas(windowWidth,windowHeight);
+    //createCanvas(windowWidth-30,windowHeight-50);
+    createCanvas(1150,550);
     b = new ball();
     team_a = new team(1);
     team_b = new team(2);
@@ -113,7 +114,8 @@ function draw() {
     if(b.team_collide(team_a.players) || b.team_collide(team_b.players)){
         b.vx *= -1;
         b.colorChange();
-        //collision_sound.play();
+        // collision_sound.play();
+
     }
 
     b.move();

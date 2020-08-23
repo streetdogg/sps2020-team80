@@ -1,0 +1,20 @@
+{
+	"manifest_version":2,
+	"name":"Pong Extension for Google Meet",
+	"version": "0.1",
+	"content_scripts":[
+		{
+			"matches":[
+				"https://meet.google.com/*-*"
+			],
+			"js":["content.js"]
+		}
+	],
+	"background":{
+		"scripts":["background.js"]
+	},
+	"browser_action": {
+		"default_icon": "blue.png"
+	},
+	"permissions": ["http://localhost/*","http://127.0.0.1:5000/*"]
+}
