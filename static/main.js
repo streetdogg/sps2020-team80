@@ -8,7 +8,7 @@ var isLeader = false;
 var winningScore = 10;
 
 function setup() {
-    createCanvas(windowWidth,windowHeight);
+    createCanvas(windowWidth-30,windowHeight-50);
     b = new ball();
     team_a = new team(1);
     team_b = new team(2);
