@@ -114,6 +114,10 @@ def home():
 	}
 	return render_template("indexholder.html",data=data)
 
+@app.route("/")
+def home():
+	print f"Hello!"
+
 if __name__ == '__main__':
     initialize()
     socketio.run(app)
