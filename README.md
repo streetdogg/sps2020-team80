@@ -11,7 +11,7 @@ A Google Meet extension to play multiplayer pong with other participants in the 
 4. Visit localhost:5000
 
 ## Links
-[Webapp]() | [Video]() | [Design Doc](https://docs.google.com/document/d/1641ap_6jrd_O6O1aYaC8ZLNTEei5D3TVY7tPfCanNPg/edit?usp=sharing)
+[Webapp](http://34.68.97.181/newplayer) | [Video](https://youtu.be/-HvZ-ABMN_Q) | [Design Doc](https://docs.google.com/document/d/1641ap_6jrd_O6O1aYaC8ZLNTEei5D3TVY7tPfCanNPg/edit?usp=sharing)
 
 ## Team Members
 [Angel Walia](https://github.com/angelwalia3) | [Kanupriya Singh](https://github.com/kanupriyaa) | [Nitish Bharti](https://github.com/nitishbharti235) | [Priya Kaushal](https://github.com/Priyak5) | [Piyush Itankar](https://github.com/pitankar)
