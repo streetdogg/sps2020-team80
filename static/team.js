@@ -34,4 +34,8 @@ function team(a) {
         console.log(this.players);
 
     }
+
+    this.remove = function(playerIndex) {
+        this.players.splice(playerIndex, playerIndex+1);
+    }
 } 

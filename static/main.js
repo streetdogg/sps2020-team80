@@ -34,10 +34,6 @@ function setup() {
         playerName = currentPlayer;
         clientTeam = currentTeam;
         var json = JSON.parse(players);
-        if(jQuery.isEmptyObject(json) && teamName=="A") {
-            isLeader = true;
-            window.setInterval(updateBallPosition, 2000);
-        }
         if(teamName=="A") {
             for(var key in json) {
                 team_a.addPlayer(teamName, key);
@@ -50,11 +46,13 @@ function setup() {
     })
 
     socket.on('movePlayer', function(teamName, playerIndex, position) {
+        if(start) {
         if(teamName=="A") {
             team_a.players[playerIndex].move(position);
         } else {
             team_b.players[playerIndex].move(position);
         }
+    }
     })
 
     socket.on('updateScore', function(teamAScore,  teamBScore) {
@@ -67,6 +65,19 @@ function setup() {
         b.y = y;
         b.vx = vx;
         b.vy = vy;
+    })
+
+    socket.on('removePlayer', function(playerIndex, teamName) {
+        if(teamName=="A") {
+            team_a.remove(playerIndex);
+        } else {
+            team_b.remove(playerIndex);
+        }
+    })
+
+    socket.on('makeLeader', function(){
+        isLeader = true;
+        window.setInterval(updateBallPosition, 2000);
     })
 }
 

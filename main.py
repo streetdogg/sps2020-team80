@@ -10,6 +10,7 @@ socketio = SocketIO(app, async_mode='eventlet')
 team_a = "A"
 team_b = "B"
 totalPlayer = 0
+teamPreference = 0
 
 #for the game landing page
 teamA=[]
@@ -20,6 +21,10 @@ playersPosition = dict()
 playerIndex = dict()
 score = dict()
 ball = dict()
+sidToPlayer = dict()
+sidToTeam = dict()
+leaderArray = []
+currentLeader = "-1"
 
 def initialize():
     playersPosition[team_a] ={}
@@ -28,36 +33,92 @@ def initialize():
     score[team_b] = 0
     ball["x"] = 0
     ball["y"] = 0
-    ball["vx"] = 0
-    ball["vy"] = 0
+    ball["vx"] = 5
+    ball["vy"] = 5
+
+def makeLeader(currentLeader):
+    print('making the guy '+ sidToPlayer[currentLeader]+' leader...')
+    emit('makeLeader', (), room=currentLeader)
 
 def initPlayer(playerName):
     print('new player '+ playerName+' initiating...')
-    global totalPlayer
+    global teamPreference
+    global currentLeader
     currentTeam = team_a
-    if(totalPlayer%2):
+    if(teamPreference == 1):
         currentTeam = team_b
     
     emit('connectedPlayers', ("A",json.dumps(playersPosition[team_a]), playerName, currentTeam), room=request.sid )
     emit('connectedPlayers', ("B", json.dumps(playersPosition[team_b]), playerName, currentTeam), room=request.sid)
 
-    playerIndex[playerName]=totalPlayer//2
+    sidToPlayer[request.sid] = playerName
+    leaderArray.append(request.sid)
+    if len(leaderArray) == 1:
+        currentLeader = request.sid
+        makeLeader(currentLeader)
 
-    if totalPlayer%2 == 0:
-        playersPosition[team_a][playerName] =0
+    if teamPreference == 0:
+        playerIndex[playerName] = len(playersPosition[team_a])
+        playersPosition[team_a][playerName] = 0
+        sidToTeam[request.sid] = team_a
         socketio.emit('addToTeam',("A", playerName))
     else:
+        playerIndex[playerName] = len(playersPosition[team_b])
         playersPosition[team_b][playerName] =0
+        sidToTeam[request.sid] = team_b
         socketio.emit('addToTeam', ("B",playerName))
     
     emit('updateScore', (score[team_a], score[team_b]), room=request.sid)
-    totalPlayer+=1
+    teamPreference = teamPreference^1
+
+@socketio.on('disconnect')
+def test_disconnect():
+    if(request.sid in sidToPlayer):
+        global playersPosition
+        global playerIndex
+        global teamPreference
+        global currentLeader
+        print('Client disconnected with name: '+sidToPlayer[request.sid])
+        playerName = sidToPlayer[request.sid]
+        teamName = sidToTeam[request.sid]
+
+        socketio.emit('removePlayer', (playerIndex[playerName], teamName))
+        del playersPosition[teamName][playerName]
+        del playerIndex[playerName]
+        del sidToPlayer[request.sid]
+        del sidToTeam[request.sid]
+        leaderArray.remove(request.sid)
+        
+        if len(leaderArray) == 0:
+            currentLeader = "-1"
+            score[team_a], score[team_b] = 0, 0
+
+        if currentLeader == request.sid:
+            currentLeader = leaderArray[0]
+            makeLeader(currentLeader)
+
+        if len(playersPosition[team_a]) <= len(playersPosition[team_b]):
+            teamPreference = 0
+        else:
+            teamPreference = 1
+        
+        if teamName == "A":
+            idx = 0
+            for key, val in playersPosition[team_a].items():
+                playerIndex[key] = idx
+                idx = idx + 1
+        else:
+            idx = 0
+            for key, val in playersPosition[team_b].items():
+                playerIndex[key] = idx
+                idx = idx + 1
+
 
 @socketio.on('updateBall')
 def updateBall(ballJson):
     for key, val in ballJson.items():
         ball[key] = val
-    socketio.emit('syncBall', (ball['x'], ball['y'], ball['vx'], ball['vy']))
+    # socketio.emit('syncBall', (ball['x'], ball['y'], ball['vx'], ball['vy']))
 
 @socketio.on('scoreChange')
 def scoreChanged(scoreJson):
@@ -116,4 +177,4 @@ def home():
 
 if __name__ == '__main__':
     initialize()
-    socketio.run(app)
+    socketio.run(app, host='0.0.0.0', port=80)
