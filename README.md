@@ -7,7 +7,7 @@ A Google Meet extension to play multiplayer pong with other participants in the 
     - flask
     - flask-socketio
     - eventlet
-3. Run `python3 main.py`
+3. Run `sudo python3 main.py`
 4. Visit localhost:5000
 
 ## Links
