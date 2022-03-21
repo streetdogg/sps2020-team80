@@ -20,7 +20,7 @@ entrypoints==0.3
 fasteners==0.14.1
 Flask==1.1.1
 future==0.18.2
-Guake==3.6.3
+Guake==3.8.5
 httplib2==0.18.0
 idna==2.8
 itsdangerous==1.1.0
